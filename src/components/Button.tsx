@@ -11,6 +11,7 @@ interface IButtonProps {
    onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
    leftIcon?: React.ReactNode;
    rightIcon?: React.ReactNode;
+   loading?: boolean;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -23,12 +24,13 @@ const Button: React.FC<IButtonProps> = ({
    type = "button",
    leftIcon,
    rightIcon,
+   loading = false,
 }) => {
    return (
       <button
          type={type}
          onClick={onClick}
-         disabled={disabled}
+         disabled={disabled || loading}
          className={cn(
             "f-center gap-2",
             "w-full h-10 px-2.5 text-sm rounded font-medium active:opacity-70 transition-opacity border-2 border-transparent disabled:opacity-50",
@@ -39,9 +41,15 @@ const Button: React.FC<IButtonProps> = ({
             className
          )}
       >
-         {leftIcon}
-         <span>{children}</span>
-         {rightIcon}
+         {loading ? (
+            <span>Loading...</span>
+         ) : (
+            <>
+               {leftIcon}
+               <span>{children}</span>
+               {rightIcon}
+            </>
+         )}
       </button>
    );
 };

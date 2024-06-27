@@ -12,7 +12,7 @@ const SharedSticky = () => {
          <div className="fixed top-2/4 right-0 z-50 w-fit cursor-pointer bg-filum px-3 py-2 origin-top-right rotate-90 bg-primary rounded">
             <button className="f-center gap-2" onClick={toggle}>
                <div className="text-sm rotate-[180deg] font-medium text-white">
-                  Phản hồi
+                  Chia sẻ
                </div>
                <ExternalLink size={16} className="rotate-[270deg]" />
             </button>

@@ -15,7 +15,7 @@ const HomePage = () => {
          toast.warning("Vui lòng nhập Email.");
          return;
       }
-      router.push(`/assessment?=${emailRef.current.value}`);
+      router.push(`/assessment?email=${emailRef.current.value}`);
    };
 
    return (

@@ -4,16 +4,16 @@ import ArcProgress from "react-arc-progress";
 import { cn } from "~/lib/cn";
 
 interface ICircularProgress {
-   progress: number;
+   score: number;
 }
 
-const CircularProgress: React.FC<ICircularProgress> = ({ progress }) => {
+const CircularProgress: React.FC<ICircularProgress> = ({ score }) => {
    return (
       <div className="f-center">
          <div className="relative size-[300px] f-center">
-            <ArcProgress progress={progress} size={250} fillColor="#ffbb10" />
+            <ArcProgress progress={score / 10} size={250} fillColor="#ffbb10" />
             <div className="absolute f-center flex-col bottom-1/4">
-               <h4 className="font-medium text-2xl">5.5</h4>
+               <h4 className="font-medium text-2xl">{score}</h4>
                <span>Score</span>
             </div>
 

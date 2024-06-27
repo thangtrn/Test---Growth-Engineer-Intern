@@ -1,34 +1,33 @@
-import React from "react";
+import React, { memo } from "react";
 import Button from "./Button";
 import GlassCardWrapper from "./GlassCardWrapper";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-
-type Option = {
-   id: number;
-   text: string;
-   score: number;
-};
+import { IQuestion } from "~/interfaces/assessment";
 
 interface AssessmentCardProps {
    // for title
    currentQuestion: number;
    totalQuestion: number;
    // for option
-   options: Option[];
-   selectedOption: number;
+   question: IQuestion;
+   selectedOption: number | null;
    onPreviousClick: () => void;
    onNextClick: () => void;
    onSubmit: () => void;
+   onSelectedQuestion: (id: number) => void;
+   isLoading: boolean;
 }
 
 const AssessmentCard: React.FC<AssessmentCardProps> = ({
    currentQuestion,
    totalQuestion,
-   options,
+   question,
    selectedOption,
    onPreviousClick,
    onNextClick,
    onSubmit,
+   onSelectedQuestion,
+   isLoading,
 }) => {
    return (
       <GlassCardWrapper
@@ -42,18 +41,15 @@ const AssessmentCard: React.FC<AssessmentCardProps> = ({
          }
       >
          <div className="space-y-3">
-            <h3 className="font-medium">
-               Có một nhóm chuyên trách về việc thu thập, phân tích nguyên nhân
-               gốc rễ vấn đề của khách hàng và truyền thông về phản hồi của
-               khách hàng đến quản lý và ban lãnh đạo cấp cao.
-            </h3>
+            <h3 className="font-medium">{question?.title}</h3>
 
             <div className="space-y-3">
-               {options.map((item) => (
+               {question?.options.map((item) => (
                   <Button
                      key={item.id}
                      variant="ghost"
                      selected={selectedOption === item.id}
+                     onClick={() => onSelectedQuestion(item.id)}
                   >
                      {item.text}
                   </Button>
@@ -65,11 +61,14 @@ const AssessmentCard: React.FC<AssessmentCardProps> = ({
                   variant="flat"
                   leftIcon={<ArrowLeft size={16} />}
                   onClick={onPreviousClick}
+                  disabled={isLoading}
                >
                   Quay lại
                </Button>
                {currentQuestion === totalQuestion ? (
-                  <Button onClick={onSubmit}>Gửi đánh giá</Button>
+                  <Button onClick={onSubmit} loading={isLoading}>
+                     Gửi đánh giá
+                  </Button>
                ) : (
                   <Button
                      rightIcon={<ArrowRight size={16} />}
@@ -84,4 +83,4 @@ const AssessmentCard: React.FC<AssessmentCardProps> = ({
    );
 };
 
-export default AssessmentCard;
+export default memo(AssessmentCard);

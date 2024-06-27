@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { FacebookShareButton } from "react-share";
 import { toast } from "react-toastify";
 import Button from "~/components/Button";
 
@@ -25,8 +26,8 @@ const SharedModal: React.FC<SharedModalProps> = ({ hide }) => {
 
    const handleSendMail = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log("Hello");
       setEmail("");
+      toast("Opss tính năng này đang được phát triển");
    };
 
    return (
@@ -48,7 +49,12 @@ const SharedModal: React.FC<SharedModalProps> = ({ hide }) => {
             {isRoot ? (
                <>
                   <div className="space-y-3 mb-3">
-                     <Button>Chia sẻ qua Facebook</Button>
+                     <FacebookShareButton
+                        url={location.href}
+                        className="w-full"
+                     >
+                        <Button>Chia sẻ qua Facebook</Button>
+                     </FacebookShareButton>
                      <Button
                         variant="flat"
                         className="bg-slate-200"
